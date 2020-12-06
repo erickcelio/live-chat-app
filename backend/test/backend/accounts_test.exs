@@ -6,9 +6,12 @@ defmodule Backend.AccountsTest do
   describe "users" do
     alias Backend.Accounts.User
 
-    @valid_attrs %{email: "some email", encrypted_password: "some encrypted_password"}
-    @update_attrs %{email: "some updated email", encrypted_password: "some updated encrypted_password"}
-    @invalid_attrs %{email: nil, encrypted_password: nil}
+    @valid_attrs %{email: "email@email.com", password: "password"}
+    @update_attrs %{
+      email: "updatedemail@email.com",
+      password: "updated_password"
+    }
+    @invalid_attrs %{email: "some email", encrypted_password: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -17,6 +20,7 @@ defmodule Backend.AccountsTest do
         |> Accounts.create_user()
 
       user
+      |> Map.merge(%{password: nil})
     end
 
     test "list_users/0 returns all users" do
@@ -31,8 +35,7 @@ defmodule Backend.AccountsTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.email == "some email"
-      assert user.encrypted_password == "some encrypted_password"
+      assert user.email == "email@email.com"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -42,8 +45,7 @@ defmodule Backend.AccountsTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-      assert user.email == "some updated email"
-      assert user.encrypted_password == "some updated encrypted_password"
+      assert user.email == "updatedemail@email.com"
     end
 
     test "update_user/2 with invalid data returns error changeset" do

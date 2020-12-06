@@ -7,4 +7,10 @@ defmodule BackendWeb.UserView do
       token: token
     }
   end
+
+  def render("user_changed_with_success.json", _assigns) do
+    %{
+      message: "changed with success!"
+    }
+  end
 end

@@ -25,6 +25,6 @@ defmodule BackendWeb.FallbackController do
   def call(conn, {:error, :unauthorized}) do
     conn
     |> put_status(:unauthorized)
-    |> render(BusiApiWeb.ErrorView, :"401")
+    |> render(BackendWeb.ErrorView, :"401")
   end
 end
