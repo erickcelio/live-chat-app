@@ -8,6 +8,7 @@ defmodule Backend.Accounts.User do
     field :encrypted_password, :string
     field :password, :string, virtual: true
 
+    has_many :messages, Channels.Message
     has_many :owned_channels, Channels.Channel, on_delete: :delete_all
     many_to_many :channels, Channels.Channel, join_through: "users_channels"
 

@@ -4,12 +4,14 @@ defmodule Backend.Channels.Channel do
   import Ecto.Changeset
 
   alias Backend.Accounts
+  alias Backend.Channels
   alias Backend.Repo
 
   schema "channels" do
     field :name, :string
 
     belongs_to :user, Accounts.User
+    has_many :messages, Channels.Message
     many_to_many :users, Accounts.User, join_through: "users_channels", on_delete: :delete_all
     timestamps()
   end

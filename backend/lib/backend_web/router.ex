@@ -23,6 +23,7 @@ defmodule BackendWeb.Router do
     pipe_through([:api, :auth])
     patch "/users/update", UserController, :update
     resources "/channels", ChannelController
+    resources "/messages", MessageController
   end
 
   scope "/", BackendWeb do
