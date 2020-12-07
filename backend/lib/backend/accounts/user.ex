@@ -1,11 +1,15 @@
 defmodule Backend.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Backend.Channels
 
   schema "users" do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+
+    has_many :owned_channels, Channels.Channel, on_delete: :delete_all
+    many_to_many :channels, Channels.Channel, join_through: "users_channels"
 
     timestamps()
   end
